@@ -1,0 +1,125 @@
+/* Só existe na versão showcase — selo flutuante de "dados fictícios" e o
+   acesso rápido por perfil na tela de login. Usa os tokens de tokens.css, então
+   acompanha o tema claro/escuro. Flutua no canto (em vez de uma faixa no topo)
+   porque `.app-shell` ocupa exatamente 100vh e qualquer barra fixa estouraria. */
+
+.showcase-selo {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 32px);
+  padding: 8px 10px 8px 14px;
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  background: var(--popover-bg);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  box-shadow: var(--card-shadow);
+}
+
+.showcase-selo-rotulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.showcase-selo-rotulo::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.showcase-selo button {
+  flex: none;
+  padding: 6px 12px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--btn-ghost-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.showcase-selo button:hover {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 560px) {
+  .showcase-selo-detalhe {
+    display: none;
+  }
+}
+
+/* --- Acesso rápido (login) --- */
+
+.acesso-rapido {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-default);
+}
+
+.acesso-rapido h3 {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.acesso-rapido > p {
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.acesso-rapido-lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.acesso-rapido-lista button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  font: inherit;
+  text-align: left;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.acesso-rapido-lista button:hover,
+.acesso-rapido-lista button:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.acesso-rapido-lista strong {
+  font-size: 13px;
+}
+
+.acesso-rapido-lista span {
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 420px) {
+  .acesso-rapido-lista {
+    grid-template-columns: 1fr;
+  }
+}

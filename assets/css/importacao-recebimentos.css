@@ -1,0 +1,23 @@
+/* Estilos específicos da Importação de Recebimentos — ver
+   public/importacao-recebimentos.html. `.secao-detalhe`/`.tabela-wrapper`/
+   `.empresa-select` já existem em components.css; aqui só a lista de linhas
+   com problema (etapa de revisão) e o input de arquivo. */
+
+.lista-erros-importacao {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--alert-warning-text);
+}
+
+#input-arquivo-importacao {
+  padding: 12px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+  font-size: 14px;
+}

@@ -1,0 +1,23 @@
+/* Estilos específicos do Espelho de Cobrança — ver public/cobrancas-espelho.html.
+   `.secao-metricas`/`.grade-metricas`/`.cartao-metrica*` e a lista de
+   inconsistências (`.lista-inconsistencias`/`.item-inconsistencia*`) já
+   estão em components.css — a segunda foi promovida pra lá porque
+   empresa-detalhe.js também a usa (via assets/js/espelho-shared.js), na
+   seção "Espelho de cobrança" do detalhe da empresa. Aqui só o checkbox
+   "incluir zerados", que só esta tela (visão do tenant inteiro) tem. */
+
+.campo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.campo-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}

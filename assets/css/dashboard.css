@@ -1,0 +1,14 @@
+/* Estilos específicos do Dashboard gerencial — ver public/dashboard.html.
+   `.secao-metricas`/`.grade-metricas`/`.cartao-metrica*` viraram genéricos e
+   foram promovidos a components.css quando o Espelho de Cobrança (Fase 4)
+   passou a precisar deles também — nada exclusivo desta tela além do gap
+   abaixo. */
+
+/* `#conteudo-dashboard` é o único filho direto de `.app-main` (que só dá
+   gap: 20px entre filhos diretos) — sem isto aqui, o cabeçalho da página e
+   as duas `.secao-metricas` ficam coladas um no outro, sem respiro. */
+#conteudo-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

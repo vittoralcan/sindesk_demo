@@ -1,0 +1,19 @@
+/* Estilos específicos da tela Recebimentos — ver public/recebimentos.html.
+   Cabeçalho, barra de filtros e tabela são compartilhados em
+   components.css; só o destaque visual da linha de estorno é exclusivo
+   daqui. */
+
+/* Estorno é um lançamento como outro qualquer (nunca oculto/somado — RN-CON-
+   02/03), só com leitura visual sutilmente diferente: texto um pouco mais
+   apagado, pra não parecer "recebimento normal" à primeira vista. */
+.linha-estorno {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Duas ações lado a lado no cabeçalho (Importar extrato + Novo recebimento). */
+.acoes-recebimentos {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

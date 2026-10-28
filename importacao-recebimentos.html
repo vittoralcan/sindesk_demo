@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Importação de Recebimentos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/importacao-recebimentos.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <div id="conteudo-importacao">
+          <a href="recebimentos.html" class="link-voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar para Recebimentos</a>
+
+          <div class="pagina-cabecalho">
+            <div>
+              <h1>Importação de Recebimentos</h1>
+              <p class="subtitulo">Envie um extrato em CSV e revise as propostas antes de confirmar — nada é gravado sem sua confirmação.</p>
+            </div>
+          </div>
+
+          <div id="alerta-importacao" class="alert" role="alert" aria-live="polite">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span id="alerta-importacao-texto"></span>
+          </div>
+
+          <!-- Etapa 1: upload -->
+          <fieldset class="secao-detalhe" id="etapa-upload">
+            <legend>1. Enviar arquivo</legend>
+            <p class="subsecao-vazia nota-secao">
+              CSV com cabeçalho fixo, nesta ordem: <code>data,valorCentavos,identificador,descricao</code>. Até 5.000 linhas e 5MB.
+            </p>
+
+            <form id="form-upload-importacao">
+              <div class="campo-formulario obrigatorio">
+                <label for="input-arquivo-importacao">Arquivo CSV</label>
+                <input type="file" id="input-arquivo-importacao" accept=".csv,text/csv" required>
+              </div>
+              <div class="campo-formulario obrigatorio">
+                <label for="input-competencia-importacao">Competência do lote</label>
+                <input type="month" id="input-competencia-importacao" pattern="\d{4}-\d{2}" required>
+              </div>
+              <div class="acoes-formulario">
+                <button type="submit" class="btn-submit" id="btn-enviar-importacao">
+                  <span id="texto-btn-enviar-importacao">Enviar</span>
+                </button>
+              </div>
+            </form>
+          </fieldset>
+
+          <!-- Etapa 2: revisão das propostas -->
+          <fieldset class="secao-detalhe" id="etapa-revisao" hidden>
+            <legend>2. Revisar e confirmar</legend>
+            <p class="subsecao-vazia nota-secao" id="revisao-resumo"></p>
+
+            <div id="area-erros-importacao"></div>
+
+            <div class="tabela-wrapper">
+              <table class="tabela">
+                <thead>
+                  <tr>
+                    <th>Linha</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Identificador</th>
+                    <th>Descrição</th>
+                    <th>Empresa</th>
+                    <th>Confiança</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="corpo-tabela-propostas"></tbody>
+              </table>
+            </div>
+
+            <div class="acoes-formulario">
+              <button type="button" class="btn-ghost" id="btn-cancelar-importacao">Cancelar</button>
+              <button type="button" class="btn-submit" id="btn-confirmar-importacao">
+                <span id="texto-btn-confirmar-importacao">Confirmar importação</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <!-- Etapa 3: sucesso -->
+          <fieldset class="secao-detalhe" id="etapa-sucesso" hidden>
+            <legend>Importação concluída</legend>
+            <p class="subsecao-vazia" id="sucesso-resumo"></p>
+            <div class="acoes-formulario">
+              <a href="recebimentos.html" class="btn-ghost">Ver em Recebimentos</a>
+              <button type="button" class="btn-submit" id="btn-nova-importacao">Nova importação</button>
+            </div>
+          </fieldset>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/importacao-recebimentos.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

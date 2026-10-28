@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Planos de Contribuição</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/planos-contribuicao.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <div id="conteudo-planos">
+          <div class="pagina-cabecalho">
+            <div>
+              <h1>Planos de Contribuição</h1>
+              <p class="subtitulo">Identidade dos planos (código, nome) — o valor de cada um fica no detalhe.</p>
+            </div>
+            <button type="button" class="btn-submit btn-acao" id="btn-novo-plano" hidden>
+              <i class="fa-solid fa-plus" aria-hidden="true"></i> Novo Plano
+            </button>
+          </div>
+
+          <div class="tabela-wrapper">
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/planos-contribuicao.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

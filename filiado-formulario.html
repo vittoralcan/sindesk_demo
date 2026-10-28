@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Cadastro de Filiado</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/filiado-formulario.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <a href="filiados.html" class="link-voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar para Filiados</a>
+
+        <div id="conteudo-formulario">
+          <div class="pagina-cabecalho">
+            <div>
+              <h1 id="titulo-formulario">Novo Filiado</h1>
+              <p class="subtitulo" id="subtitulo-formulario">
+                Preencha os dados obrigatórios (marcados com *) — os demais são opcionais.
+              </p>
+            </div>
+          </div>
+
+          <div id="alerta-formulario" class="alert" role="alert" aria-live="polite">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span id="alerta-formulario-texto"></span>
+          </div>
+
+          <form id="form-filiado">
+            <div class="secoes-detalhe">
+              <fieldset class="secao-detalhe">
+                <legend>Dados pessoais</legend>
+                <div class="grade-formulario">
+                  <div class="campo-formulario obrigatorio">
+                    <label for="campo-nomeCompleto">Nome completo</label>
+                    <input type="text" id="campo-nomeCompleto" name="nomeCompleto" required>
+                  </div>
+                  <div class="campo-formulario obrigatorio">
+                    <label for="campo-cpf">CPF</label>
+                    <input type="text" id="campo-cpf" name="cpf" inputmode="numeric" placeholder="Com ou sem máscara" required>
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-matricula">Matrícula</label>
+                    <input type="text" id="campo-matricula" name="matricula">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-rg">RG</label>
+                    <input type="text" id="campo-rg" name="rg">
+                  </div>
+                  <div class="campo-formulario obrigatorio">
+                    <label for="campo-dataNascimento">Data de nascimento</label>
+                    <input type="date" id="campo-dataNascimento" name="dataNascimento" required>
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-sexo">Sexo</label>
+                    <select id="campo-sexo" name="sexo">
+                      <option value="">Não informado</option>
+                      <option value="MASCULINO">Masculino</option>
+                      <option value="FEMININO">Feminino</option>
+                    </select>
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-estadoCivil">Estado civil</label>
+                    <select id="campo-estadoCivil" name="estadoCivil">
+                      <option value="">Não informado</option>
+                      <option value="SOLTEIRO">Solteiro(a)</option>
+                      <option value="CASADO">Casado(a)</option>
+                      <option value="DIVORCIADO">Divorciado(a)</option>
+                      <option value="VIUVO">Viúvo(a)</option>
+                      <option value="UNIAO_ESTAVEL">União estável</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="secao-detalhe">
+                <legend>Contato</legend>
+                <div class="grade-formulario">
+                  <div class="campo-formulario">
+                    <label for="campo-email">E-mail</label>
+                    <input type="email" id="campo-email" name="email">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-telefone">Telefone</label>
+                    <input type="tel" id="campo-telefone" name="telefone">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-celular">Celular</label>
+                    <input type="tel" id="campo-celular" name="celular">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="secao-detalhe">
+                <legend>Endereço</legend>
+                <div class="grade-formulario">
+                  <div class="campo-formulario">
+                    <label for="campo-cep">CEP</label>
+                    <input type="text" id="campo-cep" name="cep" inputmode="numeric" placeholder="8 dígitos">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-logradouro">Logradouro</label>
+                    <input type="text" id="campo-logradouro" name="logradouro">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-numero">Número</label>
+                    <input type="text" id="campo-numero" name="numero">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-bairro">Bairro</label>
+                    <input type="text" id="campo-bairro" name="bairro">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-cidade">Cidade</label>
+                    <input type="text" id="campo-cidade" name="cidade">
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-uf">UF</label>
+                    <input type="text" id="campo-uf" name="uf" maxlength="2" style="text-transform: uppercase;">
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="secao-detalhe">
+                <legend>Vigência e filiação</legend>
+                <div class="grade-formulario">
+                  <div class="campo-formulario obrigatorio">
+                    <label for="campo-dataFiliacao">Data de filiação</label>
+                    <input type="date" id="campo-dataFiliacao" name="dataFiliacao" required>
+                  </div>
+                  <div class="campo-formulario obrigatorio">
+                    <label for="campo-dataVigenciaInicio">Vigência início</label>
+                    <input type="date" id="campo-dataVigenciaInicio" name="dataVigenciaInicio" required>
+                  </div>
+                  <div class="campo-formulario">
+                    <label for="campo-dataVigenciaFim">Vigência fim</label>
+                    <input type="date" id="campo-dataVigenciaFim" name="dataVigenciaFim">
+                  </div>
+                  <div class="campo-formulario campo-formulario--largura-total">
+                    <label for="campo-observacoes">Observações</label>
+                    <textarea id="campo-observacoes" name="observacoes"></textarea>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="acoes-formulario">
+              <button type="submit" class="btn-submit" id="btn-salvar">
+                <span id="texto-btn-salvar">Salvar</span>
+              </button>
+              <a href="filiados.html" class="btn-ghost">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/filiado-formulario.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

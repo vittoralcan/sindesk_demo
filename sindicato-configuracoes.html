@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Configurações do Sindicato</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sindicato-configuracoes.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <div id="conteudo-configuracoes">
+          <div class="pagina-cabecalho">
+            <div>
+              <h1>Configurações do Sindicato</h1>
+              <p class="subtitulo">Parâmetros que valem para o sindicato inteiro.</p>
+            </div>
+          </div>
+
+          <div class="secoes-detalhe">
+            <fieldset class="secao-detalhe">
+              <legend>Plano de contribuição padrão</legend>
+              <p class="subsecao-vazia nota-secao">
+                Todo filiado sem plano próprio usa este. Se nenhum estiver definido aqui, ele aparece como "sem plano" nos relatórios.
+              </p>
+
+              <div id="alerta-plano-padrao" class="alert" role="alert" aria-live="polite">
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true" id="alerta-plano-padrao-icone"></i>
+                <span id="alerta-plano-padrao-texto"></span>
+              </div>
+
+              <form id="form-plano-padrao">
+                <div class="campo-formulario">
+                  <label for="select-plano-padrao">Plano padrão</label>
+                  <select id="select-plano-padrao">
+                    <option value="">Nenhum</option>
+                  </select>
+                </div>
+                <div class="acoes-formulario" id="acoes-plano-padrao">
+                  <button type="submit" class="btn-submit" id="btn-salvar-plano-padrao">
+                    <span id="texto-btn-salvar-plano-padrao">Salvar</span>
+                  </button>
+                </div>
+              </form>
+            </fieldset>
+
+            <fieldset class="secao-detalhe">
+              <legend>Chave Pix</legend>
+              <p class="subsecao-vazia nota-secao">
+                Usada para gerar o QR Code de cobrança em <a href="gerar-pix.html">Gerar Pix</a>. A chave não é um dado secreto — ela aparece no próprio QR para quem for pagar.
+              </p>
+
+              <div id="alerta-pix-cpf" class="alert alert--warning" role="status" aria-live="polite">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                <span id="alerta-pix-cpf-texto"></span>
+              </div>
+
+              <div id="alerta-plano-pix" class="alert" role="alert" aria-live="polite">
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true" id="alerta-plano-pix-icone"></i>
+                <span id="alerta-plano-pix-texto"></span>
+              </div>
+
+              <form id="form-pix">
+                <div class="campo-formulario obrigatorio">
+                  <label for="input-chave-pix">Chave Pix</label>
+                  <input type="text" id="input-chave-pix" placeholder="CPF, CNPJ, e-mail, telefone ou chave aleatória">
+                </div>
+                <div class="campo-formulario obrigatorio">
+                  <label for="input-nome-recebedor-pix">Nome do recebedor</label>
+                  <input type="text" id="input-nome-recebedor-pix" maxlength="25">
+                  <span class="contador-caracteres" id="contador-nome-recebedor-pix">0/25</span>
+                </div>
+                <div class="campo-formulario obrigatorio">
+                  <label for="input-cidade-recebedor-pix">Cidade do recebedor</label>
+                  <input type="text" id="input-cidade-recebedor-pix" maxlength="15">
+                  <span class="contador-caracteres" id="contador-cidade-recebedor-pix">0/15</span>
+                </div>
+                <div class="acoes-formulario" id="acoes-pix">
+                  <button type="submit" class="btn-submit" id="btn-salvar-pix">
+                    <span id="texto-btn-salvar-pix">Salvar</span>
+                  </button>
+                </div>
+              </form>
+            </fieldset>
+
+            <fieldset class="secao-detalhe">
+              <legend>Tolerância de divergência</legend>
+              <p class="subsecao-vazia nota-secao">
+                Diferença em centavos que ainda conta como "conciliado" na tela de <a href="conciliacao.html">Conciliação</a>. Padrão é zero — qualquer centavo de diferença já aparece como divergência.
+              </p>
+
+              <div class="alert alert--warning is-visible" role="status">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                <span>Mudar a tolerância reclassifica competências passadas na próxima consulta — a divergência nunca é congelada, é sempre recalculada.</span>
+              </div>
+
+              <div id="alerta-tolerancia" class="alert" role="alert" aria-live="polite">
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true" id="alerta-tolerancia-icone"></i>
+                <span id="alerta-tolerancia-texto"></span>
+              </div>
+
+              <form id="form-tolerancia">
+                <div class="campo-formulario obrigatorio">
+                  <label for="input-tolerancia">Tolerância (R$)</label>
+                  <input type="number" id="input-tolerancia" step="0.01" min="0" required>
+                </div>
+                <div class="acoes-formulario" id="acoes-tolerancia">
+                  <button type="submit" class="btn-submit" id="btn-salvar-tolerancia">
+                    <span id="texto-btn-salvar-tolerancia">Salvar</span>
+                  </button>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/sindicato-configuracoes.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

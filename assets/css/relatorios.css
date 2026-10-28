@@ -1,0 +1,17 @@
+/* Estilos específicos de Relatórios — ver public/relatorios.html. */
+
+/* Mesmo caso do Dashboard: `#conteudo-relatorios` é filho único de
+   `.app-main` (que só dá gap entre filhos diretos), então precisa do
+   próprio gap pra não colar cabeçalho/filtros/tabela um no outro. */
+#conteudo-relatorios {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.barra-filtros .campo-formulario {
+  min-width: 160px;
+}
+.barra-filtros .campo-formulario label {
+  white-space: nowrap;
+}

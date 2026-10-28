@@ -1,0 +1,164 @@
+/*
+ * Design tokens do Sindesk.
+ * Claro é o padrão fixo do produto (não segue prefers-color-scheme do
+ * sistema) — theme.js sempre define [data-theme] explicitamente no boot,
+ * então só os dois blocos [data-theme='light']/[data-theme='dark'] abaixo
+ * entram em jogo.
+ */
+
+:root {
+  color-scheme: light;
+
+  --font-family: 'Plus Jakarta Sans', sans-serif;
+
+  --color-primary: #ef4444;
+  --color-primary-hover: #dc2626;
+  --color-primary-strong: #b91c1c;
+  --color-primary-soft: #f87171;
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn-sm: 8px;
+
+  /* Paleta clara (padrão) */
+  --bg: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-default: #e2e8f0;
+
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(255, 255, 255, 0.9);
+  --card-blur: 25px;
+  --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 1);
+
+  /* Fundo dos popovers (dropdown, date-picker) — bem mais opaco que
+     --card-bg de propósito: eles flutuam por cima de conteúdo real
+     (tabelas, texto), não do fundo vazio da página, então precisam cobrir
+     o que está atrás pra continuar legível. */
+  --popover-bg: rgba(255, 255, 255, 0.98);
+
+  /* Fundo do cabeçalho fixo (título + filtros) das telas de listagem —
+     diferente do --popover-bg: aqui ele precisa continuar parecendo vidro
+     (por isso o blur próprio, ver .cabecalho-fixo em components.css), só
+     opaco o bastante pra tabela rolando por baixo não vazar através dele. */
+  --sticky-header-bg: rgba(255, 255, 255, 0.82);
+
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --input-bg-focus: #ffffff;
+  --icon-color: #94a3b8;
+
+  --orb-1: rgba(239, 68, 68, 0.15);
+  --orb-2: rgba(220, 38, 38, 0.12);
+  --particle-color: rgba(239, 68, 68, 0.4);
+
+  --alert-error-bg: rgba(239, 68, 68, 0.08);
+  --alert-error-border: rgba(239, 68, 68, 0.35);
+  --alert-error-text: #b91c1c;
+
+  --alert-warning-bg: rgba(234, 179, 8, 0.1);
+  --alert-warning-border: rgba(234, 179, 8, 0.4);
+  --alert-warning-text: #854d0e;
+
+  --alert-success-bg: rgba(34, 197, 94, 0.08);
+  --alert-success-border: rgba(34, 197, 94, 0.35);
+  --alert-success-text: #15803d;
+
+  --info-bg: rgba(59, 130, 246, 0.08);
+  --info-border: rgba(59, 130, 246, 0.35);
+  --info-text: #1d4ed8;
+
+  --btn-ghost-bg: rgba(15, 23, 42, 0.05);
+  --btn-ghost-border: rgba(15, 23, 42, 0.1);
+}
+
+:root[data-theme='dark'] {
+  /* Controles nativos (ex.: ícone do calendário em <input type="date">)
+     seguem nosso [data-theme], não a preferência do sistema — claro é o
+     padrão fixo do produto (ver comentário no topo deste arquivo). */
+  color-scheme: dark;
+
+  --bg: #0d0909;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-default: rgba(255, 255, 255, 0.1);
+
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-blur: 20px;
+  --card-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  --popover-bg: rgba(23, 17, 17, 0.98);
+  --sticky-header-bg: rgba(13, 9, 9, 0.72);
+
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-bg-focus: rgba(255, 255, 255, 0.08);
+  --icon-color: #64748b;
+
+  --orb-1: rgba(239, 68, 68, 0.35);
+  --orb-2: rgba(185, 28, 28, 0.3);
+
+  --alert-error-bg: rgba(239, 68, 68, 0.12);
+  --alert-error-border: rgba(239, 68, 68, 0.4);
+  --alert-error-text: #fca5a5;
+
+  --alert-warning-bg: rgba(234, 179, 8, 0.12);
+  --alert-warning-border: rgba(234, 179, 8, 0.4);
+  --alert-warning-text: #fde68a;
+
+  --alert-success-bg: rgba(34, 197, 94, 0.15);
+  --alert-success-border: rgba(34, 197, 94, 0.4);
+  --alert-success-text: #4ade80;
+
+  --info-bg: rgba(59, 130, 246, 0.15);
+  --info-border: rgba(59, 130, 246, 0.4);
+  --info-text: #93c5fd;
+
+  --btn-ghost-bg: rgba(255, 255, 255, 0.05);
+  --btn-ghost-border: rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-default: #e2e8f0;
+
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(255, 255, 255, 0.9);
+  --card-blur: 25px;
+  --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.05);
+  --card-inset: inset 0 1px 0 rgba(255, 255, 255, 1);
+
+  --popover-bg: rgba(255, 255, 255, 0.98);
+  --sticky-header-bg: rgba(255, 255, 255, 0.82);
+
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --input-bg-focus: #ffffff;
+  --icon-color: #94a3b8;
+
+  --orb-1: rgba(239, 68, 68, 0.15);
+  --orb-2: rgba(220, 38, 38, 0.12);
+
+  --alert-error-bg: rgba(239, 68, 68, 0.08);
+  --alert-error-border: rgba(239, 68, 68, 0.35);
+  --alert-error-text: #b91c1c;
+
+  --alert-warning-bg: rgba(234, 179, 8, 0.1);
+  --alert-warning-border: rgba(234, 179, 8, 0.4);
+  --alert-warning-text: #854d0e;
+
+  --alert-success-bg: rgba(34, 197, 94, 0.08);
+  --alert-success-border: rgba(34, 197, 94, 0.35);
+  --alert-success-text: #15803d;
+
+  --info-bg: rgba(59, 130, 246, 0.08);
+  --info-border: rgba(59, 130, 246, 0.35);
+  --info-text: #1d4ed8;
+
+  --btn-ghost-bg: rgba(15, 23, 42, 0.05);
+  --btn-ghost-border: rgba(15, 23, 42, 0.1);
+}

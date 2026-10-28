@@ -1,0 +1,31 @@
+/* Estilos específicos do Painel de Conciliação — ver public/conciliacao.html.
+   Cabeçalho, filtros, cartões de indicadores e tabela já vêm de
+   components.css; aqui só a fileira de contadores por situação (badge +
+   número + rótulo), que não se repete em nenhuma outra tela. */
+
+.lista-resumo-situacoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.item-resumo-situacao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: var(--radius-card);
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+}
+
+.item-resumo-situacao-valor {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.item-resumo-situacao-label {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}

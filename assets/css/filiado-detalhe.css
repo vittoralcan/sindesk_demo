@@ -1,0 +1,70 @@
+/* Estilos específicos do Detalhe do Filiado — ver public/filiado-detalhe.html.
+   O padrão de seções (.secao-detalhe/.secoes-detalhe) e o link "Voltar"
+   viraram compartilhados em components.css assim que o formulário de
+   Cadastro/Edição também precisou deles. */
+
+.detalhe-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.detalhe-titulo h1 {
+  font-size: 22px;
+}
+
+.detalhe-acoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.detalhe-acoes .btn-acao {
+  width: auto;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.detalhe-acoes .btn-acao--desabilitada {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.detalhe-acoes .btn-acao--perigo:not(.btn-acao--desabilitada) {
+  border-color: var(--alert-error-border);
+  color: var(--alert-error-text);
+}
+.detalhe-acoes .btn-acao--perigo:not(.btn-acao--desabilitada):hover {
+  background: var(--alert-error-bg);
+}
+
+.subsecao-titulo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.subsecao-titulo .btn-ghost {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 12.5px;
+}
+
+/* O texto vem de um <textarea> no formulário — preserva quebras de linha
+   que o usuário digitou, senão elas desaparecem visualmente aqui. */
+.texto-observacoes {
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .detalhe-acoes {
+    justify-content: flex-start;
+  }
+}

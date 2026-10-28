@@ -1,0 +1,6 @@
+/* Estilos específicos da Listagem de Filiados — ver public/filiados.html.
+   Cabeçalho de página, barra de filtros e botão de ação compacto viraram
+   padrão compartilhado em components.css assim que Detalhe/Vencimentos
+   Próximos precisaram da mesma coisa — não sobrou nada realmente exclusivo
+   desta tela ainda. Arquivo mantido (mesmo quase vazio) pra já existir o
+   lugar certo quando algo específico da Listagem aparecer. */

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Evolução da Conciliação</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/conciliacao-evolucao.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <div id="conteudo-evolucao">
+          <a href="conciliacao.html" class="link-voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar para Conciliação</a>
+
+          <div class="pagina-cabecalho">
+            <div>
+              <h1>Evolução da Conciliação</h1>
+              <p class="subtitulo">Histórico de filiados e valores por empresa, competência a competência.</p>
+            </div>
+          </div>
+
+          <form id="form-filtros-evolucao" class="barra-filtros">
+            <div class="campo-formulario">
+              <label for="evolucao-empresa-select">Empresa (opcional)</label>
+              <div class="empresa-select" id="evolucao-empresa-select"></div>
+            </div>
+            <div class="campo-formulario">
+              <label for="input-competencias-evolucao">Últimas competências</label>
+              <input type="number" id="input-competencias-evolucao" min="1" max="24" value="6">
+            </div>
+            <button type="submit" class="btn-ghost">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Consultar
+            </button>
+          </form>
+
+          <div id="alerta-evolucao" class="alert" role="alert" aria-live="polite">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span id="alerta-evolucao-texto"></span>
+          </div>
+
+          <p class="subsecao-vazia" id="evolucao-metadados"></p>
+
+          <div id="area-evolucao"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/conciliacao-evolucao.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

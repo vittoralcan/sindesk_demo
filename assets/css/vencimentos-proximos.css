@@ -1,0 +1,40 @@
+/* Estilos específicos de Vencimentos Próximos — ver
+   public/vencimentos-proximos.html. */
+
+.segmentado {
+  display: flex;
+  gap: 8px;
+}
+.chip {
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border-default);
+  background: var(--input-bg);
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.chip.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.barra-filtros .campo-dias-personalizado {
+  /* Bug #9 (QA 2026-09-21): 190px cortava o placeholder anterior
+     ("Personalizado (1-180)"); mesmo com o texto mais curto agora, uma
+     folga maior evita o mesmo corte se o texto crescer de novo. */
+  max-width: 220px;
+}
+
+.dias-para-vencer--urgente {
+  color: var(--alert-warning-text);
+  font-weight: 700;
+}

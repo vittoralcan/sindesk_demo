@@ -1,0 +1,8 @@
+/* Estilos específicos das Configurações do Sindicato — ver
+   public/sindicato-configuracoes.html. Esta tela cresce por seções
+   independentes (plano padrão agora; chave Pix e tolerância de conciliação
+   entram depois, cada uma em seu próprio <fieldset>). */
+
+.nota-secao {
+  margin-bottom: 12px;
+}

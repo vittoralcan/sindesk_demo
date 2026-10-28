@@ -1,0 +1,1212 @@
+/* Catálogo de padrões de UI compartilhados entre telas de listagem/detalhe
+   — badge de status, tabela, paginação. Carregado por toda tela
+   que precisar de algum destes (não é específico de nenhuma tela). */
+
+/* --- Link "Voltar" + seções com legenda (fieldset) ---
+   Nasceram no Detalhe do Filiado, reaproveitados no formulário de
+   Cadastro/Edição — qualquer tela que organize conteúdo em blocos com
+   título usa isto. */
+.link-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.link-voltar:hover {
+  color: var(--color-primary);
+}
+
+.secao-detalhe {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.secao-detalhe legend {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+  padding: 0;
+  width: 100%;
+}
+.secoes-detalhe {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* --- 2.6 Formulário longo (Cadastro/Edição de filiado) --- */
+.grade-formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+}
+@media (max-width: 700px) {
+  .grade-formulario {
+    grid-template-columns: 1fr;
+  }
+}
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.campo-formulario label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.campo-formulario.obrigatorio label::after {
+  content: ' *';
+  color: var(--color-primary);
+}
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+  padding: 12px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+  transition: all 0.2s ease;
+}
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+  background: var(--input-bg-focus);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+.campo-formulario textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: var(--font-family);
+}
+.campo-formulario--largura-total {
+  grid-column: 1 / -1;
+}
+
+/* --- 2.4 Modal / overlay --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  animation: modal-surgir 0.15s ease;
+}
+@keyframes modal-surgir {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px 28px;
+}
+.modal-fechar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.modal-fechar:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.modal-conteudo h2 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  padding-right: 28px;
+}
+.modal-conteudo .modal-descricao {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+/* Lista de campos que seriam apagados — modal de confirmação antes de um
+   PUT que apagaria dado já preenchido (RN-FIL-05, Bug #1 do QA 2026-09-21). */
+.lista-campos-a-apagar {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border-radius: var(--radius-btn-sm);
+  background: var(--alert-warning-bg);
+  border: 1px solid var(--alert-warning-border);
+}
+.lista-campos-a-apagar li {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.lista-campos-a-apagar li::before {
+  content: '\2022';
+  margin-right: 8px;
+  color: var(--alert-warning-text);
+}
+
+.contador-caracteres {
+  display: block;
+  text-align: right;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Linha de botões de confirmar/cancelar — nasceu no formulário de
+   Cadastro/Edição, reaproveitada por todo modal de ação (alterar status,
+   adicionar vínculo, renovar vigência, anonimizar), por isso vive aqui e
+   não num CSS de tela específica. */
+.acoes-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.acoes-formulario .btn-submit,
+.acoes-formulario .btn-ghost {
+  width: auto;
+  padding: 14px 28px;
+}
+@media (max-width: 480px) {
+  .acoes-formulario {
+    flex-direction: column;
+  }
+  .acoes-formulario .btn-submit,
+  .acoes-formulario .btn-ghost {
+    width: 100%;
+  }
+}
+
+/* Texto de estado vazio/indisponível dentro de uma seção ou modal (ex.:
+   "nenhum vínculo cadastrado", "não há transição disponível"). */
+.subsecao-vazia {
+  color: var(--text-secondary);
+  font-size: 13.5px;
+}
+
+/* --- Botão de ação em linha de tabela (ícone só, compacto) --- */
+.btn-acao-linha {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-btn-sm);
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.btn-acao-linha:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* --- Barra de filtros --- */
+.barra-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+.barra-filtros .input-group {
+  margin-bottom: 0;
+  min-width: 180px;
+  flex: 1 1 200px;
+}
+/* `.input-group input` (layout.css) tem padding vertical de 15px, pensado
+   pro tamanho de destaque do login — dentro de uma barra de filtros, ao
+   lado do dropdown/date-picker/botão (todos com 12px), isso deixava esse
+   campo visivelmente mais alto que o resto da linha. */
+.barra-filtros .input-group input {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+.select-filtro {
+  padding: 15px 16px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  min-width: 170px;
+}
+.select-filtro:focus {
+  background: var(--input-bg-focus);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+.barra-filtros .btn-ghost {
+  width: auto;
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+
+/* --- Cabeçalho de página + botão de ação compacto ---
+   Título/subtítulo à esquerda, uma ou mais ações à direita — repetido em
+   toda tela de listagem/detalhe (Filiados, Detalhe do Filiado, e as
+   próximas). */
+.pagina-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn-acao {
+  width: auto;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .pagina-cabecalho {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* --- Cartões de indicadores agregados --- nasceu no Dashboard, reaproveitado
+   pelos "totais" do Espelho de Cobrança (Fase 4) — qualquer tela que precise
+   destacar alguns números de resumo antes de uma tabela. */
+.secao-metricas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.secao-metricas h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+.grade-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+.cartao-metrica {
+  padding: 22px 24px;
+  border-radius: var(--radius-card);
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cartao-metrica-label {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.cartao-metrica-valor {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+.cartao-metrica--destaque {
+  background: var(--color-primary);
+  border: none;
+}
+.cartao-metrica--destaque .cartao-metrica-label,
+.cartao-metrica--destaque .cartao-metrica-valor {
+  color: #fff;
+}
+
+/* --- Lista de inconsistências do Espelho de Cobrança (Fase 4) --- usada
+   tanto na visão do tenant inteiro (cobrancas-espelho.js) quanto na visão
+   por empresa (dentro de empresa-detalhe.js), ambas via
+   assets/js/espelho-shared.js — por isso vive aqui, não no CSS de uma
+   tela só. */
+.lista-inconsistencias {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.item-inconsistencia {
+  padding: 16px 18px;
+  border-radius: var(--radius-card);
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.item-inconsistencia--destaque {
+  border-color: var(--alert-warning-border);
+  background: var(--alert-warning-bg);
+}
+.item-inconsistencia-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.item-inconsistencia-label {
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.item-inconsistencia-quantidade {
+  font-weight: 800;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.item-inconsistencia-descricao {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.item-inconsistencia-valor {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* --- 2.1 Badge de status --- */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.badge-status--sucesso {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #15803d;
+}
+:root[data-theme='dark'] .badge-status--sucesso {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+.badge-status--neutro {
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--btn-ghost-border);
+  color: var(--text-secondary);
+}
+.badge-status--alerta {
+  background: var(--alert-warning-bg);
+  border: 1px solid var(--alert-warning-border);
+  color: var(--alert-warning-text);
+}
+.badge-status--info {
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  color: var(--info-text);
+}
+/* NAO_RECEBIDO (Painel de Conciliação, Fase 4/Fatia C) é qualitativamente
+   mais grave que RECEBIDO_A_MENOR (alerta) — reaproveita os mesmos tokens
+   do alerta de erro, já testados em ambos os temas. */
+.badge-status--perigo {
+  background: var(--alert-error-bg);
+  border: 1px solid var(--alert-error-border);
+  color: var(--alert-error-text);
+}
+
+/* --- 2.2 Tabela de listagem --- */
+.tabela-wrapper {
+  overflow-x: auto;
+  /* Sem isto, um flex/grid item por padrão não encolhe além do tamanho
+     "natural" do próprio conteúdo — a tabela larga forçaria `.app-main` (e
+     a página inteira) a ficar mais larga que a viewport em vez de só
+     rolar horizontalmente aqui dentro. Em telas estreitas isso empurrava
+     parte do layout pra fora da tela (e `body { overflow-x: hidden }`, em
+     layout.css, escondia de vez em vez de deixar rolar até lá). */
+  min-width: 0;
+}
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tabela thead th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-default);
+  white-space: nowrap;
+}
+.tabela thead th.ordenavel {
+  cursor: pointer;
+  user-select: none;
+}
+.tabela thead th.ordenavel i {
+  margin-left: 6px;
+  font-size: 10px;
+  opacity: 0.6;
+}
+.tabela thead th.ordenavel.ordenado-asc i,
+.tabela thead th.ordenavel.ordenado-desc i {
+  opacity: 1;
+  color: var(--color-primary);
+}
+.tabela tbody td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-default);
+}
+.tabela tbody tr.linha-clicavel {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.tabela tbody tr.linha-clicavel:hover {
+  background: var(--btn-ghost-bg);
+}
+.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estado vazio/erro genérico — usado dentro de uma tabela (via <td colspan>)
+   ou sozinho, direto no corpo de uma página (ver renderizarEstadoPagina em
+   ui.js). Não é exclusivo de tabela, apesar do nome de várias telas te
+   referirem a ele como "o estado vazio da listagem". */
+.estado-generico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 56px 24px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.estado-generico i {
+  font-size: 28px;
+  opacity: 0.5;
+}
+
+/* --- Grade de dados rotulados (Nome/E-mail/Perfil/... em cartões) ---
+   Nasceu na home de validação, reaproveitada no Detalhe do Filiado. */
+.grid-dados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.item-dado {
+  padding: 16px 18px;
+  border-radius: var(--radius-input);
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+}
+.item-dado span.label {
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.item-dado span.valor {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* --- Lista de eventos (histórico de status/movimentações, vínculos) --- */
+.lista-eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.item-evento {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  background: var(--input-bg);
+}
+.item-evento .item-evento-icone {
+  color: var(--text-secondary);
+  margin-top: 2px;
+  width: 16px;
+  text-align: center;
+}
+.item-evento .item-evento-corpo {
+  flex: 1;
+  min-width: 0;
+}
+.item-evento .item-evento-titulo {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.item-evento .item-evento-detalhe {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.item-evento .item-evento-data {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Esqueleto de carregamento — evita o layout "pular" quando os dados chegam */
+.linha-esqueleto td {
+  padding: 14px 16px;
+}
+.bloco-esqueleto {
+  height: 14px;
+  border-radius: 6px;
+  background: var(--btn-ghost-bg);
+  animation: pulsar-esqueleto 1.4s ease-in-out infinite;
+}
+@keyframes pulsar-esqueleto {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* --- Dropdown customizado (substitui o menu nativo de um <select>) ---
+   O navegador não deixa restilizar o menu aberto de um <select> de
+   verdade — isto aqui é um dropdown construído do zero por cima de um
+   <select> escondido (ver assets/js/custom-select.js). */
+.select-customizado {
+  position: relative;
+  width: 100%;
+}
+.select-customizado-nativo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.select-customizado-gatilho {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.select-customizado-gatilho:hover,
+.select-customizado-gatilho.is-aberto {
+  border-color: var(--color-primary);
+}
+.select-customizado-gatilho:focus-visible {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+.select-customizado-gatilho:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.select-customizado-gatilho:disabled:hover {
+  border-color: var(--border-default);
+}
+.select-customizado-gatilho i {
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+.select-customizado-gatilho.is-aberto i {
+  transform: rotate(180deg);
+}
+.select-customizado-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.barra-filtros .select-customizado {
+  width: auto;
+  min-width: 170px;
+}
+.campo-formulario .select-customizado-gatilho {
+  padding: 12px 14px;
+}
+
+.select-customizado-lista {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  z-index: 60;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: var(--popover-bg);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-input);
+  box-shadow: var(--card-shadow);
+  display: none;
+}
+.select-customizado-lista.is-aberta {
+  display: block;
+}
+.select-customizado-lista li {
+  padding: 10px 12px;
+  border-radius: var(--radius-btn-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.select-customizado-lista li.is-ativa {
+  background: var(--btn-ghost-bg);
+}
+.select-customizado-lista li.is-selecionada {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* --- Combobox buscável de empresas ---
+   Mesma casca visual do dropdown de select-customizado acima, mas por
+   baixo é uma busca ao vivo na API (ver assets/js/empresa-select.js), não
+   uma lista de <option> já resolvida — por isso é um componente à parte,
+   não uma variação do outro. */
+.empresa-select {
+  position: relative;
+  width: 100%;
+}
+.empresa-select-busca {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+  transition: all 0.2s ease;
+}
+.empresa-select-busca:focus {
+  background: var(--input-bg-focus);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+.empresa-select-lista {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  z-index: 60;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: var(--popover-bg);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-input);
+  box-shadow: var(--card-shadow);
+  display: none;
+}
+.empresa-select-lista.is-aberta {
+  display: block;
+}
+.empresa-select-lista li {
+  padding: 8px 12px;
+  border-radius: var(--radius-btn-sm);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.empresa-select-lista li.is-ativa,
+.empresa-select-lista li:not(.empresa-select-mensagem):hover {
+  background: var(--btn-ghost-bg);
+}
+.empresa-select-lista li.empresa-select-mensagem {
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: default;
+}
+.empresa-select-nome {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.empresa-select-cnpj {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Item fixo "Cadastrar nova empresa" ao fim do dropdown (quando o
+   componente é usado com `aoCriarNova`) — vive dentro da própria lista, não
+   como um link separado abaixo do campo: um link ali ficava exatamente sob
+   a área onde o dropdown abre, e o dropdown (position: absolute) sempre
+   pinta por cima de um elemento estático vizinho, tornando o link
+   inclicável na prática. */
+.empresa-select-lista li.empresa-select-criar-nova {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 600;
+  border-top: 1px solid var(--border-default);
+  margin-top: 4px;
+  padding-top: 10px;
+}
+
+/* --- Calendário customizado (substitui o popup nativo de <input type="date">) ---
+   Mesmo caso do dropdown acima — o popup nativo do date-picker também não
+   pode ser restilizado, então isto é um calendário construído do zero por
+   cima de um <input type="date"> escondido (ver assets/js/custom-date-picker.js). */
+.date-picker-customizado {
+  position: relative;
+  width: 100%;
+}
+.date-picker-customizado-nativo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* Bug #6 (QA 2026-09-21): o campo visível deixou de ser um <button> (que
+   não aceita digitação nenhuma) e virou um <input type="text"> com máscara
+   dd/mm/aaaa, mais um botão só do ícone do calendário ao lado. */
+.date-picker-customizado-campo {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 6px 0 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+  transition: all 0.2s ease;
+}
+.date-picker-customizado-campo:focus-within {
+  border-color: var(--color-primary);
+}
+.date-picker-customizado-campo.tem-erro {
+  border-color: var(--alert-error-border);
+}
+.date-picker-customizado-texto {
+  all: unset;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-family);
+}
+.date-picker-customizado-texto::placeholder {
+  color: var(--icon-color);
+  font-weight: 400;
+}
+.date-picker-customizado-texto.is-invalido {
+  color: var(--alert-error-text);
+}
+.date-picker-customizado-gatilho {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-btn-sm);
+  color: var(--icon-color);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.date-picker-customizado-gatilho:hover,
+.date-picker-customizado-gatilho.is-aberto {
+  background: var(--btn-ghost-bg);
+  color: var(--color-primary);
+}
+.date-picker-customizado-gatilho:focus-visible,
+.date-picker-customizado-texto:focus-visible {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+.date-picker-customizado-erro {
+  display: block;
+  min-height: 15px;
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--alert-error-text);
+}
+
+.date-picker-customizado-popup {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 60;
+  /* 300px fixos estouravam a viewport em telas bem estreitas — encolhe
+     sozinho quando não há 300px + 40px de respiro disponíveis. */
+  width: min(300px, calc(100vw - 40px));
+  padding: 16px;
+  background: var(--popover-bg);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-input);
+  box-shadow: var(--card-shadow);
+  display: none;
+}
+.date-picker-customizado-popup.is-aberto {
+  display: block;
+}
+.date-picker-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+/* Bug #6 (QA 2026-09-21): antes só havia setas de mês anterior/próximo, sem
+   atalho de ano — cadastrar a data de nascimento de um adulto exigia
+   dezenas de cliques. Os dois <select> substituem o texto fixo de mês/ano. */
+.date-picker-selects {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.date-picker-select-mes,
+.date-picker-select-ano {
+  padding: 4px 6px;
+  border-radius: var(--radius-btn-sm);
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: var(--font-family);
+  cursor: pointer;
+}
+.date-picker-select-mes {
+  min-width: 0;
+}
+.date-picker-select-ano {
+  width: 76px;
+}
+.date-picker-nav {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-btn-sm);
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.date-picker-nav:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.date-picker-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.date-picker-grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.date-picker-dia {
+  aspect-ratio: 1;
+  border: none;
+  background: none;
+  border-radius: var(--radius-btn-sm);
+  font-size: 12.5px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.date-picker-dia:hover:not(:disabled) {
+  background: var(--btn-ghost-bg);
+}
+.date-picker-dia--vazio {
+  cursor: default;
+}
+.date-picker-dia.is-hoje {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.date-picker-dia.is-selecionado {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+}
+.date-picker-dia.is-selecionado.is-hoje {
+  color: #fff;
+}
+.date-picker-dia.is-desabilitado {
+  color: var(--text-secondary);
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.date-picker-rodape {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.date-picker-rodape .btn-ghost {
+  width: auto;
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 12.5px;
+}
+
+/* Bug #11 (QA 2026-09-21): substitui o <input type="month"> nativo (que
+   avançava de segmento sozinho ao digitar rápido) por máscara mm/aaaa +
+   grade de meses do ano em foco — mesma casca de custom-date-picker.js,
+   ver assets/js/custom-month-picker.js. */
+.month-picker-ano {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.month-picker-grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.month-picker-mes {
+  padding: 10px 0;
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  border-radius: var(--radius-btn-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.month-picker-mes:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.month-picker-mes.is-selecionado {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.month-picker-mes.is-desabilitado {
+  color: var(--text-secondary);
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* --- 2.3 Paginação --- */
+.paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 18px 0 4px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+.paginacao button {
+  padding: 8px 14px;
+  border-radius: var(--radius-btn-sm);
+  border: 1px solid var(--btn-ghost-border);
+  background: var(--btn-ghost-bg);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.paginacao button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.paginacao button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- Cabeçalho fixo de tela de listagem (título + filtros) ---
+   `.app-main` é quem rola (overflow-y: auto, ver shell.css) — sem isto, o
+   bloco inteiro (cabeçalho + filtros + tabela) rola junto. Aqui o
+   cabeçalho gruda no topo da área rolável e só a tabela/paginação corre
+   por baixo dele. O `margin`/`padding` negativo+repetido cancela e depois
+   reaplica o padding de 32px do `.app-main` (senão o cabeçalho, ao grudar,
+   ficaria colado na borda do card sem aquele respiro original).
+   O `backdrop-filter` é o mesmo blur do `.glass-card` — sem ele, o
+   `--sticky-header-bg` (opaco o bastante pra tabela rolando por baixo não
+   vazar através dele) lia como um bloco liso colado por cima, quebrando a
+   sensação de vidro do resto do card. O `::after` some numa transição
+   suave em vez de cortar a tabela de forma seca na borda de baixo. */
+.cabecalho-fixo {
+  position: sticky;
+  top: -32px;
+  z-index: 10;
+  margin: -32px -32px 0;
+  padding: 32px 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--sticky-header-bg);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+}
+.cabecalho-fixo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -24px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--sticky-header-bg), transparent);
+  pointer-events: none;
+}
+@media (max-width: 780px) {
+  /* Nessa largura, `.app-main` deixa de ser o contêiner que rola (ver
+     shell.css) — a página inteira rola junto. O `top: -32px` do sticky
+     acima foi calculado pra colar no topo *daquele* contêiner específico;
+     sem ele, o cálculo aponta pro topo da viewport e o cabeçalho gruda
+     com uns 32px de si mesmo escondidos acima da tela. Mais simples
+     desligar o sticky aqui: sem contêiner interno rolando, não faz
+     sentido fixar o cabeçalho mesmo — ele só acompanha o fluxo normal da
+     página, como título/filtros de qualquer tela nessa largura. */
+  .cabecalho-fixo {
+    position: static;
+    margin: 0;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .cabecalho-fixo::after {
+    display: none;
+  }
+}
+
+/* --- Entrada suave de conteúdo carregado ---
+   Linhas de tabela, cards de métrica e itens de histórico/vínculo hoje só
+   "aparecem" de uma vez quando os dados chegam — aplica a mesma animação
+   de entrada (definida em layout.css) toda vez que esses elementos são
+   criados. */
+.tabela tbody tr,
+.item-dado,
+.item-evento,
+.cartao-metrica {
+  animation: entrada-suave 0.3s ease both;
+}
+
+/* --- Feedback de clique padrão --- todo botão "afunda" um pouco ao ser
+   clicado (encolhe levemente), no lugar de qualquer efeito de flutuar —
+   `.btn-submit` já trata o próprio hover/active em layout.css (escurece a
+   cor); aqui é só o encolher-ao-clicar dos demais controles clicáveis do
+   app. */
+.btn-ghost:active,
+.btn-acao-linha:active,
+.btn-sair:active,
+.theme-toggle:active,
+.modal-fechar:active,
+.chip:active,
+.paginacao button:not(:disabled):active,
+.date-picker-nav:active,
+.select-customizado-gatilho:active,
+.date-picker-customizado-gatilho:active {
+  transform: scale(0.97);
+}

@@ -1,0 +1,9 @@
+/* Estilos específicos da Evolução da Conciliação — ver
+   public/conciliacao-evolucao.html. `.secao-detalhe`/`.tabela-wrapper` já
+   existem em components.css; só o ícone de alerta de queda de filiados é
+   exclusivo desta tela. */
+
+.icone-queda-filiados {
+  color: var(--alert-warning-text);
+  margin-left: 6px;
+}

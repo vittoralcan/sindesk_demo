@@ -1,0 +1,5 @@
+/* Estilos específicos do Cadastro/Edição de Filiado — ver
+   public/filiado-formulario.html. O padrão de ações de formulário
+   (.acoes-formulario) virou compartilhado em components.css assim que os
+   modais de ação (alterar status, adicionar vínculo, renovar vigência,
+   anonimizar) passaram a usar o mesmo botão de confirmar/cancelar. */

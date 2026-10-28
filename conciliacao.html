@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Conciliação</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/conciliacao.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <div id="app-shell-header"></div>
+
+    <div class="app-body">
+      <div id="app-shell-nav"></div>
+
+      <main class="app-main glass-card">
+        <div id="conteudo-conciliacao">
+          <div class="cabecalho-fixo">
+            <div class="pagina-cabecalho">
+              <div>
+                <h1>Conciliação</h1>
+                <p class="subtitulo">O que cada empresa deveria repassar contra o que efetivamente entrou.</p>
+              </div>
+              <button type="button" class="btn-submit btn-acao" id="btn-exportar-conciliacao-csv" hidden>
+                <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+                <span id="texto-btn-exportar-conciliacao-csv">Exportar CSV</span>
+              </button>
+            </div>
+
+            <form id="form-filtros-conciliacao" class="barra-filtros">
+              <div class="campo-formulario">
+                <label for="filtro-competencia-conciliacao">Competência</label>
+                <input type="month" id="filtro-competencia-conciliacao" pattern="\d{4}-\d{2}" required>
+              </div>
+              <select id="filtro-situacao-conciliacao" class="select-filtro" aria-label="Filtrar por situação">
+                <option value="">Todas as situações</option>
+                <option value="NAO_RECEBIDO">Não recebido</option>
+                <option value="RECEBIDO_A_MENOR">Recebido a menor</option>
+                <option value="CONCILIADO">Conciliado</option>
+                <option value="RECEBIDO_A_MAIOR">Recebido a maior</option>
+                <option value="SEM_ESPERADO">Sem esperado</option>
+              </select>
+              <button type="submit" class="btn-ghost">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Consultar
+              </button>
+            </form>
+          </div>
+
+          <div id="alerta-conciliacao" class="alert" role="alert" aria-live="polite">
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+            <span id="alerta-conciliacao-texto"></span>
+          </div>
+
+          <p class="subsecao-vazia" id="conciliacao-metadados"></p>
+
+          <div class="secao-metricas" id="secao-totais-conciliacao"></div>
+
+          <div class="secao-metricas">
+            <h2>Situação das empresas na competência</h2>
+            <div id="area-resumo-situacoes-conciliacao"></div>
+          </div>
+
+          <div class="tabela-wrapper">
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Empresa</th>
+                  <th>Filiados</th>
+                  <th>Valor esperado</th>
+                  <th>Valor recebido</th>
+                  <th>Divergência</th>
+                  <th>Situação</th>
+                  <th>Filiados equivalentes</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela"></tbody>
+            </table>
+          </div>
+
+          <div id="area-paginacao" class="paginacao"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/conciliacao.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

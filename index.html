@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Aplica o tema salvo ANTES da primeira pintura da página - sem isso, o
+    // navegador pinta com a paleta clara padrão do CSS e só troca pra escura
+    // quando o módulo (assets/js/theme.js) termina de carregar, alguns
+    // milissegundos depois - o "flash" de tema claro relatado. Mesma chave
+    // e mesma regra de theme.js's inicializarTema() - mantenha as duas em
+    // sincronia se uma mudar.
+    (function () {
+      var tema = localStorage.getItem('sindesk.tema');
+      document.documentElement.setAttribute('data-theme', tema === 'dark' ? 'dark' : 'light');
+    })();
+  </script>
+  <title>Sindesk Showcase — Entrar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/sindesk_base.svg">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="assets/css/showcase.css">
+</head>
+<body>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+  <div class="glow-orb glow-orb--1" aria-hidden="true"></div>
+  <div class="glow-orb glow-orb--2" aria-hidden="true"></div>
+
+  <div class="layout-container">
+    <div class="left-placeholder">
+      <img src="assets/images/sindesk_base.svg" alt="Sindesk" class="logo-login" id="logo-marca">
+    </div>
+
+    <div class="right-content">
+      <div class="login-card glass-card">
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Alternar tema claro/escuro">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        </button>
+
+        <div class="card-header">
+          <h2>Acessar sua conta Sindesk</h2>
+          <p>Bem-vindo de volta! Insira suas credenciais.</p>
+        </div>
+
+        <div id="alerta-login" class="alert" role="alert" aria-live="polite">
+          <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+          <span id="alerta-texto"></span>
+        </div>
+
+        <!-- Painel 1: formulário de login -->
+        <div id="login-panel">
+          <form id="form-login">
+            <div class="input-group">
+              <input
+                type="email"
+                id="input-email"
+                name="email"
+                placeholder="Endereço de e-mail"
+                autocomplete="username"
+                required
+              >
+              <i class="fa-regular fa-envelope left-icon" aria-hidden="true"></i>
+            </div>
+
+            <div class="input-group">
+              <input
+                type="password"
+                id="input-senha"
+                name="senha"
+                placeholder="Sua senha"
+                autocomplete="current-password"
+                required
+              >
+              <i class="fa-solid fa-lock left-icon" aria-hidden="true"></i>
+              <button type="button" id="toggle-senha" class="toggle-password" aria-label="Mostrar ou ocultar senha">
+                <i class="fa-regular fa-eye" id="icone-senha" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-entrar">
+              <span id="texto-btn-entrar">Entrar na Conta</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Painel 2: desambiguação de tenant (300 Multiple Choices — RN-AUTH-02) -->
+        <div id="sindicatos-panel">
+          <p class="sindicatos-intro">
+            Este e-mail e senha correspondem a mais de um sindicato. Selecione qual você quer acessar:
+          </p>
+          <ul class="lista-sindicatos" id="lista-sindicatos"></ul>
+          <div class="acoes-sindicatos">
+            <button type="button" class="btn-submit" id="btn-confirmar-sindicato">Continuar</button>
+            <button type="button" class="btn-ghost" id="btn-voltar-login">Voltar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/login.js"></script>
+  <script type="module" src="assets/js/showcase-login.js"></script>
+  <script type="module" src="assets/js/showcase-banner.js"></script>
+</body>
+</html>

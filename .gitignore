@@ -1,0 +1,15 @@
+# Dependências e ambiente
+node_modules/
+.env
+.env.*
+
+# Arquivos de trabalho do Claude Code (internos, não fazem parte do showcase)
+.claude/
+CLAUDE.md
+docs/handoff-*.md
+
+# Sistema/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
